@@ -22,13 +22,13 @@ export const googleDetectFallback = async (text: string): Promise<string> => {
       `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&dt=ld&q=${encodeURIComponent(text)}`
     );
     const data = await response.json();
-    console.log('Google Translate API Full Response:', JSON.stringify(data, null, 2));
+    // console.log('Google Translate API Full Response:', JSON.stringify(data, null, 2));
 
     const detectedLanguage = data?.[8]?.[0]?.[0] || data?.[2];
 
     return detectedLanguage?.toLowerCase() || 'unknown';
   } catch (error) {
-    console.error('Language detection fallback failed:', error);
+    // console.error('Language detection fallback failed:', error);
     return 'unknown';
   }
 };
