@@ -19,10 +19,14 @@ export const googleTranslateFallback = async (
 export const googleDetectFallback = async (text: string): Promise<string> => {
   try {
     const response = await fetch(
-      `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=${encodeURIComponent(text)}`
+      `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&dt=ld&q=${encodeURIComponent(text)}`
     );
     const data = await response.json();
-    return data?.[2]?.toLowerCase() || 'unknown';
+    console.log('Google Translate API Full Response:', JSON.stringify(data, null, 2));
+
+    const detectedLanguage = data?.[8]?.[0]?.[0] || data?.[2];
+
+    return detectedLanguage?.toLowerCase() || 'unknown';
   } catch (error) {
     console.error('Language detection fallback failed:', error);
     return 'unknown';

@@ -80,10 +80,12 @@ export default function Home() {
       setError('Input cannot be empty');
       return;
     }
-
+  
     setLoading(true);
     try {
       const language = await detectLanguage(input);
+      console.log('Detected language for:', input, '=>', language); // DEBUGGING LINE
+  
       const newMessage: Message = {
         id: Date.now().toString(),
         text: input,
@@ -96,6 +98,7 @@ export default function Home() {
     }
     setLoading(false);
   };
+  
 
   return (
     <div className="flex flex-col h-screen bg-gray-900 text-gray-100 p-4 max-w-3xl mx-auto">
